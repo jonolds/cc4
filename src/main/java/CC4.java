@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-public class Impl1 {
+public class CC4 {
 	
 	public static class PairsOccurrenceMapper extends Mapper<LongWritable, Text, WordPair, IntWritable> {
 		private WordPair wordPair = new WordPair();
@@ -59,7 +59,7 @@ public class Impl1 {
 	
 	public static void main(String[] args) throws Exception {
 		Job job = initializeJob(args);
-		job.setJarByClass(Impl1.class);
+		job.setJarByClass(CC4.class);
 		job.setMapperClass(PairsOccurrenceMapper.class);
 		job.setCombinerClass(PairsReducer.class);
 		job.setReducerClass(PairsReducer.class);

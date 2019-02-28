@@ -12,7 +12,6 @@ class PairsRelativeOccurrenceMapper extends Mapper<LongWritable, Text, WordPair,
 	private WordPair wordPair = new WordPair();
 	private IntWritable ONE = new IntWritable(1), totalCount = new IntWritable();
 
-	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		int neighbors = context.getConfiguration().getInt("neighbors", 2);
 		String[] tokens = value.toString().split("\\s+");		  // split the words using spaces
@@ -40,7 +39,6 @@ class PairsRelativeOccurrenceMapper extends Mapper<LongWritable, Text, WordPair,
 }
 
 class WordPairPartitioner extends Partitioner<WordPair,IntWritable> {
-	@Override
 	public int getPartition(WordPair wordPair, IntWritable intWritable, int numPartitions) {
 		return wordPair.getWord().hashCode() % numPartitions;
 	}
@@ -50,7 +48,6 @@ class PairsRelativeOccurrenceReducer extends Reducer<WordPair, IntWritable, Word
 	private DoubleWritable totalCount = new DoubleWritable(), relativeCount = new DoubleWritable();
 	private Text currentWord = new Text("NOT_SET"), flag = new Text("*");
 
-	@Override
 	protected void reduce(WordPair key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 		if (key.getNeighbor().equals(flag)) {		  //start a new section of word pairs with a new left word
 			if (key.getWord().equals(currentWord)) {   //keep adding the counts of (word, *).

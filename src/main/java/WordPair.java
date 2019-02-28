@@ -14,17 +14,6 @@ public class WordPair implements Writable, WritableComparable<WordPair> {
 	public WordPair(String word, String neighbor) { this(new Text(word),new Text(neighbor)); }
 	public WordPair() { this.word = new Text(); this.neighbor = new Text(); }
 
-	public int compareTo(WordPair other) {						// A compareTo B
-		int returnVal = this.word.compareTo(other.getWord());	// return -1: A < B
-		if(returnVal != 0)										// return 0: A = B
-			return returnVal;									// return 1: A > B
-		if(this.neighbor.toString().equals("*"))
-			return -1;
-		else if(other.getNeighbor().toString().equals("*"))
-			return 1;
-		return this.neighbor.compareTo(other.getNeighbor());
-	}
-
 	public static WordPair read(DataInput in) throws IOException {
 		WordPair wordPair = new WordPair();
 		wordPair.readFields(in);
@@ -43,6 +32,17 @@ public class WordPair implements Writable, WritableComparable<WordPair> {
 
 	public String toString() { return "{word=["+word+"]"+ " neighbor=["+neighbor+"]}"; }
 
+	public int compareTo(WordPair other) {						// A compareTo B
+		int returnVal = this.word.compareTo(other.getWord());	// return -1: A < B
+		if(returnVal != 0)										// return 0: A = B
+			return returnVal;									// return 1: A > B
+		if(this.neighbor.toString().equals("*"))
+			return -1;
+		else if(other.getNeighbor().toString().equals("*"))
+			return 1;
+		return this.neighbor.compareTo(other.getNeighbor());
+	}
+	
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
