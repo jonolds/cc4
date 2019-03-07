@@ -1,14 +1,13 @@
 #!/bin/bash
+tarname="pa4_olds.tar"
 
-rm pa4_olds.tar
+rm $tarname
 javac src/main/java/*.java -Xlint:deprecation -d ./
 jar -cvf WordCountReverse.jar ./*.class
 rm ./*.class
 hadoop jar WordCountReverse.jar WordCount input output
 cat ./output/part-r-00000
 cp src/main/java/*.java .
-tar -cvf pa4_olds.tar input output *.java answer.txt
+tar -cvf $tarname input output *.java answer.txt
 rm ./*.java
 rm WordCountReverse.jar
-
- 
