@@ -1,6 +1,6 @@
 #!/bin/bash
 tarname="pa4_olds"
-mainclass="WordCount"
+mainclass="CC4"
 
 # DELETE TAR / CLEAR STAGING
 rm $tarname.tar
